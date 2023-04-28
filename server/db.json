@@ -1,0 +1,24 @@
+{
+    "posts": [
+        {
+            "id": 0,
+            "title": "Example #1",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit omnis aperiam laborum illum vel dolorum fugit expedita recusandae odit cum blanditiis facere nulla, similique hic repudiandae. Tempore dolores ex deserunt? Debitis fuga aspernatur illo dolorem nisi accusantium quos cupiditate sequi voluptates. Perferendis omnis temporibus reiciendis veniam libero quasi quae quos. Voluptatibus ad reprehenderit tempore minima voluptas quae beatae debitis totam?"
+        },
+        {
+            "id": 1,
+            "title": "Example #2",
+            "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit omnis aperiam labui voluptates. Perferendis omnis temporibus reiciendis veniam libero quasi quae quos. Voluptatibus ad reprehenderit tempore minima voluptas quae beatae debitis totam?"
+        },
+        {
+            "id": 2,
+            "title": "Example #3",
+            "description": "Dolor sit, amet consectetur adipisicing elit. Sit omnis aperiam laborum illum vel dolorum fugit expedita recusandae odit cum blanditis fuga aspernatur illo dolorem nisi accusantium quos cupiditate sequi voluptates. Perferendis omnis temporibus reiciendis veniam libero quasi quae quos. Voluptatibus ad reprehenderit tempore minima voluptas quae beatae debitis totam?"
+        },
+        {
+            "id": 3,
+            "title": "Example #4",
+            "description": "Cere nulla, similique hic repudiandae. Tempore dolores ex deserunt? Debitis fuga aspernatur illo dolorem nisi accusantium quos cupiditate sequi voluptates. Perferendis omnis temporibus reiciendis veniam libero quasi quae quos. Voluptatibus ad reprehenderit tempore minima voluptas quae beatae debitis totam?"
+        }
+    ]
+}

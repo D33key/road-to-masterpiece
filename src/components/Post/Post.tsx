@@ -31,7 +31,7 @@ const Post = (props: IPost) => {
         <div className={cl.wrapper}>
             <h2 className={cl.title}>{props.title}</h2>
             {isEditing ? (
-                <div>
+                <>
                     <textarea
                         value={description}
                         onChange={(event) => setDescription(event.target.value)}
@@ -48,7 +48,7 @@ const Post = (props: IPost) => {
                         </div>
                         <p className={cl.date}>{date}</p>
                     </div>
-                </div>
+                </>
             ) : (
                 <>
                     <div className={cl.description}>{description}</div>

@@ -12,19 +12,20 @@
     font-weight: bold;
 }
 
-.description{
+.description {
     font-size: 1rem;
     margin: 10px 0;
 }
 
 .btnWrapper {
-    margin-top: auto;
-
     display: flex;
     gap: 20px;
 }
 
-.postEdition{
+
+
+.postEdition {
+    margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
