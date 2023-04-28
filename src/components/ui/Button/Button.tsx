@@ -2,12 +2,15 @@ import cl from "./Button.module.css";
 
 interface IButton {
     title: string;
-    action?: string;
+    type?: string;
+    action?: () => void;
 }
 
-const Button = ({ title, action }: IButton) => {
+const Button = ({ title, type, action }: IButton) => {
     return (
-        <button className={`${cl.btn} ${action && cl.delete}`}>{title}</button>
+        <button onClick={action} className={`${cl.btn} ${type && cl.delete}`}>
+            {title}
+        </button>
     );
 };
 

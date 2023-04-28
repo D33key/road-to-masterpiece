@@ -2,8 +2,13 @@
     padding: 10px;
     background-color: lightseagreen;
     color: white;
+    transition: 0.3s ease;
 }
 
 .btn.delete {
     background-color: lightcoral;
+}
+
+.btn:hover{
+    box-shadow: 1px 0 3px 0 lightslategrey;
 }
