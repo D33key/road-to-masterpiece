@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
-import { postActions } from "../../redux/slices/postSlice";
+import { addNewPost, postActions } from "../../redux/slices/postSlice";
 import cl from "./AddForm.module.css";
 
 const AddForm = () => {
@@ -16,7 +16,7 @@ const AddForm = () => {
         title: string;
         description: string;
     }) => {
-        dispatch(postActions.addPost({ title, description }));
+        dispatch(addNewPost({ title, description }));
         setDescription("");
         setTitle("");
     };

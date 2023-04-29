@@ -39,6 +39,30 @@ export const fetchPost = createAsyncThunk(
     }
 );
 
+export const addNewPost = createAsyncThunk(
+    "posts/addNewPost",
+    async ({ title, description }: AddPost, { rejectWithValue, dispatch }) => {
+        try {
+            const response = await fetch("http://localhost:3001/posts", {
+                method: "POST",
+                body: JSON.stringify({
+                    id: nanoid(),
+                    title,
+                    description,
+                }),
+                headers: {
+                    "Content-type": "application/json",
+                },
+            });
+            if (!response.ok) throw new Error("Some problem with adding post!");
+            const data = await response.json();
+            dispatch(postActions.addPost(data));
+        } catch (error) {
+            if (isApiError(error)) return rejectWithValue(error.message);
+        }
+    }
+);
+
 const postSlice = createSlice({
     name: "posts",
     initialState,
@@ -48,7 +72,6 @@ const postSlice = createSlice({
                 id: nanoid(),
                 title: action.payload.title,
                 description: action.payload.description,
-                date: new Date(),
             });
         },
         removePost(state, action: PayloadAction<string>) {
@@ -64,7 +87,7 @@ const postSlice = createSlice({
             })
             .addCase(fetchPost.fulfilled, (state, action) => {
                 state.status = "succeded";
-                state.posts = action.payload;
+                state.posts = action.payload ?? [];
             })
             .addCase(fetchPost.rejected, (state, action) => {
                 state.status = "failed";

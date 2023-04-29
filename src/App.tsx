@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import AddForm from "./components/AddForm/AddForm";
 import Post from "./components/Post/Post";
-import { useAppDispatch } from "./hooks/redux-hooks";
-import { fetchPost, postActions } from "./redux/slices/postSlice";
+import { useAppDispatch, useAppSelector } from "./hooks/redux-hooks";
+import { fetchPost } from "./redux/slices/postSlice";
 
 interface IPosts {
     id: number;
@@ -12,9 +12,8 @@ interface IPosts {
 }
 
 function App() {
+    const posts = useAppSelector(state => state.post.posts);
     const dispatch = useAppDispatch();
-
-    const [posts, setPosts] = useState<IPosts[]>([]);
 
     useEffect(() => {
         dispatch(fetchPost());

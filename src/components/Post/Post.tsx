@@ -8,7 +8,7 @@ import cl from "./Post.module.css";
 const Post = (props: IPost) => {
     const dispatch = useAppDispatch();
 
-    const date: string = props.date.toLocaleString();
+    const date: string | undefined = props.date?.toLocaleString();
     const [isEditing, setIsEditing] = useState(false);
     const [description, setDescription] = useState<string>(props.description);
 
