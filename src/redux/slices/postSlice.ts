@@ -63,16 +63,27 @@ export const addNewPost = createAsyncThunk(
     }
 );
 
+export const removePost = createAsyncThunk(
+    "posts/removePost",
+    async (id: string, { rejectWithValue, dispatch }) => {
+        try {
+            const response = await fetch(`http://localhost:3001/posts/${id}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) throw new Error("Some problem with adding post!");
+            dispatch(postActions.removePost(id));
+        } catch (error) {
+            if (isApiError(error)) return rejectWithValue(error.message);
+        }
+    }
+);
+
 const postSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
-        addPost(state, action: PayloadAction<AddPost>) {
-            state.posts.push({
-                id: nanoid(),
-                title: action.payload.title,
-                description: action.payload.description,
-            });
+        addPost(state, action: PayloadAction<IPost>) {
+            state.posts.push(action.payload);
         },
         removePost(state, action: PayloadAction<string>) {
             state.posts = state.posts.filter(
@@ -90,6 +101,14 @@ const postSlice = createSlice({
                 state.posts = action.payload ?? [];
             })
             .addCase(fetchPost.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload;
+            })
+            .addCase(addNewPost.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload;
+            })
+            .addCase(removePost.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload;
             });

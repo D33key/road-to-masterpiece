@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
-import { postActions } from "../../redux/slices/postSlice";
+import { postActions, removePost } from "../../redux/slices/postSlice";
 import { IPost } from "../../types";
 import Button from "../ui/Button/Button";
 import cl from "./Post.module.css";
@@ -27,7 +27,8 @@ const Post = (props: IPost) => {
     };
 
     const handleDelete = (id: string) => {
-        dispatch(postActions.removePost(id));
+        console.log(id)
+        dispatch(removePost(id));
     };
 
     return (

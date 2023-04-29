@@ -1,5 +1,6 @@
 .wrapper {
     flex: 1 0 400px;
+    max-width: 500px;
     min-height: 100px;
     display: flex;
     flex-direction: column;
@@ -10,11 +11,14 @@
 .title {
     font-size: 2rem;
     font-weight: bold;
+    overflow-wrap: break-word; 
 }
 
 .description {
+    max-width: 100%;
     font-size: 1rem;
     margin: 10px 0;
+    overflow-wrap: break-word; 
 }
 
 .btnWrapper {

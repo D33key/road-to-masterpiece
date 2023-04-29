@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
-import { addNewPost, postActions } from "../../redux/slices/postSlice";
+import { addNewPost } from "../../redux/slices/postSlice";
 import cl from "./AddForm.module.css";
 
 const AddForm = () => {
