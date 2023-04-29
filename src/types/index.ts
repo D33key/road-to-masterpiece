@@ -3,6 +3,11 @@ export interface AddPost {
     description: string;
 }
 
+export interface EditPost {
+    id: string;
+    description: string;
+}
+
 export interface IPost {
     id: string;
     title: string;

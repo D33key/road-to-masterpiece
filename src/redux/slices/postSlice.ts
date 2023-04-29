@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
-import { IPost } from "../../types";
+import { EditPost, IPost } from "../../types";
 import { AddPost } from "./../../types/index";
 
 interface InitialState {
@@ -70,8 +70,38 @@ export const removePost = createAsyncThunk(
             const response = await fetch(`http://localhost:3001/posts/${id}`, {
                 method: "DELETE",
             });
-            if (!response.ok) throw new Error("Some problem with adding post!");
+            if (!response.ok)
+                throw new Error("Some problem with removing post!");
             dispatch(postActions.removePost(id));
+        } catch (error) {
+            if (isApiError(error)) return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const editPost = createAsyncThunk(
+    "posts/editPost",
+    async (
+        { id, description }: { id: string; description: string },
+        { rejectWithValue, dispatch }
+    ) => {
+        try {
+            const oldPost = await fetch(`http://localhost:3001/posts/${id}`);
+            const oldPostData = await oldPost.json();
+
+            const updatedPost = {
+                ...oldPostData,
+                description,
+            };
+
+            const response = await fetch(`http://localhost:3001/posts/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedPost),
+            });
+            if (!response.ok)
+                throw new Error("Some problem with editing post!");
+            dispatch(postActions.editPost({ id, description }));
         } catch (error) {
             if (isApiError(error)) return rejectWithValue(error.message);
         }
@@ -89,6 +119,17 @@ const postSlice = createSlice({
             state.posts = state.posts.filter(
                 (post) => post.id !== action.payload
             );
+        },
+        editPost(state, action: PayloadAction<EditPost>) {
+            state.posts = state.posts.map((post) => {
+                if (post.id === action.payload.id) {
+                    return {
+                        ...post,
+                        description: action.payload.description,
+                    };
+                }
+                return post;
+            });
         },
     },
     extraReducers(builder) {

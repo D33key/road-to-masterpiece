@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
-import { postActions, removePost } from "../../redux/slices/postSlice";
+import { editPost, removePost } from "../../redux/slices/postSlice";
 import { IPost } from "../../types";
 import Button from "../ui/Button/Button";
 import cl from "./Post.module.css";
@@ -21,13 +21,12 @@ const Post = (props: IPost) => {
         setIsEditing(false);
     };
 
-    const handleSave = () => {
-        // TODO: ADD HERE UPDATE FOR API !!!
+    const handleSave = (id: string) => {
         setIsEditing(false);
+        dispatch(editPost({id, description}))
     };
 
     const handleDelete = (id: string) => {
-        console.log(id)
         dispatch(removePost(id));
     };
 
@@ -43,7 +42,7 @@ const Post = (props: IPost) => {
                     />
                     <div className={cl.postEdition}>
                         <div className={cl.btnWrapper}>
-                            <Button title="Save" action={handleSave} />
+                            <Button title="Save" action={() => handleSave(props.id)} />
                             <Button
                                 title="Cancel"
                                 action={handleCancel}
