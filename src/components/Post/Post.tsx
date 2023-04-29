@@ -1,14 +1,13 @@
 import { useState } from "react";
+import { useAppDispatch } from "../../hooks/redux-hooks";
+import { postActions } from "../../redux/slices/postSlice";
+import { IPost } from "../../types";
 import Button from "../ui/Button/Button";
 import cl from "./Post.module.css";
 
-interface IPost {
-    title: string;
-    description: string;
-    date: Date;
-}
-
 const Post = (props: IPost) => {
+    const dispatch = useAppDispatch();
+
     const date: string = props.date.toLocaleString();
     const [isEditing, setIsEditing] = useState(false);
     const [description, setDescription] = useState<string>(props.description);
@@ -25,6 +24,10 @@ const Post = (props: IPost) => {
     const handleSave = () => {
         // TODO: ADD HERE UPDATE FOR API !!!
         setIsEditing(false);
+    };
+
+    const handleDelete = (id: string) => {
+        dispatch(postActions.removePost(id));
     };
 
     return (
@@ -55,7 +58,11 @@ const Post = (props: IPost) => {
                     <div className={cl.postEdition}>
                         <div className={cl.btnWrapper}>
                             <Button title="Edit" action={handleEditing} />
-                            <Button title="Delete" type="danger" />
+                            <Button
+                                title="Delete"
+                                type="danger"
+                                action={() => handleDelete(props.id)}
+                            />
                         </div>
                         <p className={cl.date}>{date}</p>
                     </div>

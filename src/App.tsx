@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import AddForm from "./components/AddForm/AddForm";
 import Post from "./components/Post/Post";
+import { useAppDispatch } from "./hooks/redux-hooks";
+import { fetchPost, postActions } from "./redux/slices/postSlice";
 
 interface IPosts {
     id: number;
@@ -9,22 +11,14 @@ interface IPosts {
     description: string;
 }
 
-async function fetchPost(): Promise<IPosts[]> {
-    const response = await fetch("http://localhost:3001/posts");
-    const data = await response.json();
-
-    return data;
-}
-
 function App() {
+    const dispatch = useAppDispatch();
+
     const [posts, setPosts] = useState<IPosts[]>([]);
 
     useEffect(() => {
-        const data = fetchPost();
-        data.then((post) => {
-            setPosts(post);
-        });
-    }, []);
+        dispatch(fetchPost());
+    }, [dispatch]);
 
     return (
         <div className="App">
@@ -33,7 +27,13 @@ function App() {
             </div>
             <div className="posts">
                 {posts.map((post) => (
-                    <Post key={post.title} title={post.title} description={post.description} date={new Date()}/>
+                    <Post
+                        id={post.id.toString()}
+                        key={post.title}
+                        title={post.title}
+                        description={post.description}
+                        date={new Date()}
+                    />
                 ))}
             </div>
         </div>
